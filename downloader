@@ -15,7 +15,7 @@ while true; do
     for channel in $(cat /config/channel-file); do
         for video in $(curl "https://www.youtube.com/feeds/videos.xml?channel_id=${channel}" |\
                        grep '<yt:videoId>'                                                   |\
-                       sed -E 's#</?yt:videoId>##g'                                         |\
+                       sed -E 's#</?yt:videoId>##g'                                          |\
                        sed -E 's/\s//g'                                                      \
         ); do
             yt-dlp                                                                                                              \
@@ -23,7 +23,7 @@ while true; do
                 --dateafter now-2weeks                                                                                          \
                 --download-archive /config/download-archive                                                                     \
                 --ignore-errors                                                                                                 \
-                --output "/data/%(uploader)s/S01E%(upload_date)s - %(title)s [%(id)s].%(ext)s"                                 \
+                --output "/data/%(uploader)s/S01E%(upload_date)s - %(title)s [%(id)s].%(ext)s"                                  \
                 --playlist-reverse                                                                                              \
                 --sub-lang sv,en                                                                                                \
                 --write-auto-sub                                                                                                \
