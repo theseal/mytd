@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+# Inspired by https://cleverdevil.io/2020/-automatically-downloading-youtube-content-to-plex
+
+if [ ! -d /data ]; then
+    echo "/data is missing - no where to store the videos"
+    exit 1;
+fi
+
+if [ ! -f /config/channel-file ]; then
+    echo "/config/channel-file is missing - need to know which channels to download"
+    exit 1;
+fi
+
+while true; do
+    for channel in $(cat /config/channel-file); do
+        for video in $(curl "https://www.youtube.com/feeds/videos.xml?channel_id=${channel}" |\
+                       grep '<yt:videoId>'                                                   |\
+                       sed -E 's#</?yt:videoId>##g'                                         |\
+                       sed -E 's/\s//g'                                                      \
+        ); do
+            yt-dlp                                                                                                              \
+                --add-metadata                                                                                                  \
+                --dateafter now-2weeks                                                                                          \
+                --download-archive /config/download-archive                                                                     \
+                --ignore-errors                                                                                                 \
+                --output "/data/%(uploader)s/S01E%(upload_date)s - %(title)s [%(id)s].%(ext)s"                                 \
+                --playlist-reverse                                                                                              \
+                --sub-lang sv,en                                                                                                \
+                --write-auto-sub                                                                                                \
+                --write-sub                                                                                                     \
+                --write-thumbnail                                                                                               \
+                https://www.youtube.com/watch?v=${video}
+        done
+    done
+    echo "Sleeping for an hour"
+    sleep 3600
+done
