@@ -33,7 +33,7 @@ while true; do
         done
     done
     echo "Cleaning up files older then 2 months"
-    find /data -type f -delete -mtime 60
+    find /data -type f -mtime 60 -delete
     echo "Sleeping for an hour"
     sleep 3600
 done
