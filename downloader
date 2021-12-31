@@ -32,6 +32,8 @@ while true; do
                 https://www.youtube.com/watch?v=${video}
         done
     done
+    echo "Cleaning up files older then 2 months"
+    find /data -type f -delete -mtime 60
     echo "Sleeping for an hour"
     sleep 3600
 done
