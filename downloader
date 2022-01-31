@@ -23,7 +23,7 @@ while true; do
                 --dateafter now-2weeks                                                                                          \
                 --download-archive /config/download-archive                                                                     \
                 --ignore-errors                                                                                                 \
-                --output "/data/%(uploader)s/S01E%(upload_date)s - %(title)s [%(id)s].%(ext)s"                                  \
+                --output "/data/%(uploader)s/S01E%(upload_date)s - %(uploader)s - %(title)s [%(id)s].%(ext)s"                   \
                 --playlist-reverse                                                                                              \
                 --sub-lang sv,en                                                                                                \
                 --write-auto-sub                                                                                                \
