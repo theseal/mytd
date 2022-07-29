@@ -24,7 +24,7 @@ def notify(message, reference=None):
 
 def download(url):
     ydl_opts = {
-        "download_archive": "/config/download_archive",
+        "download_archive": "/config/download-archive",
         "ignoreerrors": True,
         "writesubtitles": True,
         "writeautomaticsub": True,
