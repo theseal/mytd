@@ -92,8 +92,11 @@ def telegram():
             else:
                 continue
 
-            download(url)
             message = "Köat 👍"
+            notify(message=message, reference=message_id)
+
+            download(url)
+            message = "Hemladdat 📼🏴‍☠️"
             notify(message=message, reference=message_id)
 
 
