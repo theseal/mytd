@@ -1,5 +1,11 @@
 FROM python:3.10.5-bullseye
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+
+RUN pip3 install poetry
+
+COPY poetry.lock pyproject.toml /
+
+RUN poetry config virtualenvs.create false \
+  && poetry install --no-interaction --no-ansi
+
 COPY downloader /downloader
-CMD ["/downloader"]
+CMD ["/usr/local/bin/poetry","run","/downloader"]
