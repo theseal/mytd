@@ -8,4 +8,4 @@ RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
 
 COPY downloader /downloader
-CMD ["/usr/local/bin/poetry","run","/downloader"]
+CMD ["/downloader"]
