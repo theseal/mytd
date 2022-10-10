@@ -38,12 +38,29 @@ def download(url):
     uploader = "NA"
     title = "NA"
     result = dict()
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=True)
-        info = ydl.sanitize_info(info)
-        if info:
-            uploader = info["uploader"]
-            title = info["title"]
+
+    download = False
+    # first iteration is to check status of content
+    for count in range(2):
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=download)
+            info = ydl.sanitize_info(info)
+            if info:
+                uploader = info["uploader"]
+                title = info["title"]
+                if download == False:
+                    for f in reversed(info["formats"]):
+                        resolution = f["resolution"]
+                        if resolution == "audio only":
+                            continue
+                        res = f["resolution"].split("x")
+                        height = int(res[1])
+
+                        # Only download content better then 720p. Seems like it sometimes take a
+                        # while before youtube serves crisp content.
+                        if height >= 1080:
+                            download = True
+                            break
 
     result["uploader"] = uploader
     result["title"] = title
