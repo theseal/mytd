@@ -8,20 +8,10 @@ import os
 import re
 import requests
 import sys
+import telebot
 import threading
 import time
 import yt_dlp
-
-
-def notify(message, reference=None):
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={CHAT_ID}&text={message}&allow_sending_without_reply=True"
-    if reference:
-        url += f"&reply_to_message_id={reference}"
-    try:
-        r = requests.get(url)
-    except:
-        logging.info(f"notify    : API failure - no message at this time")
-
 
 def download(url):
     logging.info(f"download    : processing {url}")
@@ -94,46 +84,31 @@ def rss():
 
 
 def telegram():
-    offset = 0
+    @bot.message_handler(commands=["start", "help"])
+    def send_welcome(message):
+        bot.reply_to(
+            message, f"Configure the following ID server-side: {message.chat.id}"
+        )
 
-    while True:
-        logging.info(f"telegram    : fetching messages")
-        offset += 1
-        url = f"https://api.telegram.org/bot{TOKEN}/getUpdates?offset={offset}"
+    @bot.message_handler(regexp="^(https?://[^\s]+)")
+    def handle_http_message(message):
+        if message.chat.id != CHAT_ID:
+            logging.info(f"telegram    : discarding message from {message.chat.id}")
+            return
 
-        try:
-            r = requests.get(url)
-        except:
-            logging.info(f"telegram    : API failure - sleeping for 10 min")
-            time.sleep(300)
+        logging.info(f"telegram    : processing message with url: {url}")
+        reply_text = "Köat 👍"
+        last_reply = bot.reply_to(message, reply_text)
+        download(url)
+        reply_text = "Hemladdat 📼🏴‍☠️"
+        bot.reply_to(last_reply, reply_text)
 
-        data = r.json()
-        if not data["result"]:
-            time.sleep(60)
+    @bot.message_handler(func=lambda message: True)
+    def catch_all(message):
+        logging.info(f"telegram    : discarding message with invalid message")
+        bot.reply_to(message, message.text)
 
-        for result in data["result"]:
-            offset = result["update_id"]
-            from_id = result["message"]["from"]["id"]
-            # Only allow me
-            if from_id != CHAT_ID:
-                logging.info(f"telegram    : discarding message from {from_id}")
-                continue
-            text = result["message"]["text"]
-            message_id = result["message"]["message_id"]
-
-            if m := re.match("^(https?://[^\s]+)", text):
-                url = m.group(1)
-            else:
-                logging.info(f"telegram    : discarding message with invalid message")
-                continue
-
-            logging.info(f"telegram    : processing message with url: {url}")
-            message = "Köat 👍"
-            notify(message=message, reference=message_id)
-
-            download(url)
-            message = "Hemladdat 📼🏴‍☠️"
-            notify(message=message, reference=message_id)
+    bot.infinity_polling()
 
 
 if __name__ == "__main__":
@@ -142,6 +117,8 @@ if __name__ == "__main__":
 
     CHAT_ID = int(os.environ["CHAT_ID"])
     TOKEN = os.environ["TOKEN"]
+
+    bot = telebot.TeleBot(TOKEN, parse_mode=None)
 
     x = threading.Thread(target=rss)
     y = threading.Thread(target=telegram)
