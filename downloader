@@ -44,6 +44,10 @@ def download():
                     bot.reply_to(message, text)
                 else:
                     bot.send_message(CHAT_ID, f"{text}: {url}")
+            else:
+                if message:
+                    text = "Troligen nerladdat tidigare 🤷‍♂️"
+                    bot.reply_to(message, text)
 
         q.task_done()
 
