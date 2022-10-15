@@ -45,7 +45,7 @@ optional = false
 python-versions = ">=3.6.0"
 
 [package.extras]
-unicode_backport = ["unicodedata2"]
+unicode-backport = ["unicodedata2"]
 
 [[package]]
 name = "feedparser"
@@ -75,6 +75,17 @@ optional = false
 python-versions = ">=3.5, <4"
 
 [[package]]
+name = "persist-queue"
+version = "0.8.0"
+description = "A thread-safe disk based persistent queue in Python."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+extra = ["DBUtils (<3.0.0)", "PyMySQL", "msgpack (>=0.5.6)"]
+
+[[package]]
 name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
@@ -102,11 +113,11 @@ python-versions = "*"
 requests = "*"
 
 [package.extras]
-PIL = ["Pillow"]
 aiohttp = ["aiohttp"]
 aioredis = ["aioredis"]
 fastapi = ["fastapi"]
 json = ["ujson"]
+pil = ["Pillow"]
 redis = ["redis (>=3.4.1)"]
 uvicorn = ["uvicorn"]
 
@@ -126,7 +137,7 @@ urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
+use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "sgmllib3k"
@@ -176,7 +187,7 @@ websockets = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "02a024aa51cd7dde175c15f228b0b8c9b717c121554caf2865adb9fe6b3a8774"
+content-hash = "3f17568c13074fddae8527a930ef14c3d58351280a11c4157a6e88cf18cb1928"
 
 [metadata.files]
 Brotli = [
@@ -360,6 +371,10 @@ idna = [
 mutagen = [
     {file = "mutagen-1.45.1-py3-none-any.whl", hash = "sha256:9c9f243fcec7f410f138cb12c21c84c64fde4195481a30c9bfb05b5f003adfed"},
     {file = "mutagen-1.45.1.tar.gz", hash = "sha256:6397602efb3c2d7baebd2166ed85731ae1c1d475abca22090b7141ff5034b3e1"},
+]
+persist-queue = [
+    {file = "persist-queue-0.8.0.tar.gz", hash = "sha256:bdaa4dcfc4b20a9ce1f5cb6da3116b6cb8fe37527d991fd242856ef2cccd218e"},
+    {file = "persist_queue-0.8.0-py2.py3-none-any.whl", hash = "sha256:d0ce1798b457fc233973efe7c262eb5e80642bebe0c05abbe5611ee223511d5f"},
 ]
 pycparser = [
     {file = "pycparser-2.21-py2.py3-none-any.whl", hash = "sha256:8ee45429555515e1f6b185e78100aea234072576aa43ab53aefcae078162fca9"},
