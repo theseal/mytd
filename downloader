@@ -20,6 +20,7 @@ def download():
     while True:
         items = q.get()
         url = items.pop(0)
+        message = None
         if items:
             message = items.pop(0)
 
