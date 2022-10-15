@@ -74,6 +74,7 @@ def rss():
 
 
 def telegram():
+    logging.info(f"telegram    : Starting telegram bot")
     @bot.message_handler(commands=["start", "help"])
     def send_welcome(message):
         bot.reply_to(
