@@ -86,7 +86,7 @@ def telegram():
             logging.info(f"telegram    : discarding message from {message.chat.id}")
             return
 
-        url = message.text
+        url = str(message.text)
         q.put([url, message])
         logging.info(f"telegram    : processing message with url: {url}")
         reply_text = "Köat 👍"
