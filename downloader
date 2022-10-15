@@ -19,9 +19,9 @@ def download():
 
     while True:
         items = q.get()
-        url = items.pop()
+        url = items.pop(0)
         if items:
-            message = items.pop()
+            message = items.pop(0)
 
         logging.info(f"download    : processing {url}")
         ydl_opts = {
@@ -86,7 +86,7 @@ def telegram():
             logging.info(f"telegram    : discarding message from {message.chat.id}")
             return
 
-        url = str(message.text)
+        url = message.text
         q.put([url, message])
         logging.info(f"telegram    : processing message with url: {url}")
         reply_text = "Köat 👍"
