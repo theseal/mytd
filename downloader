@@ -75,8 +75,8 @@ def rss():
                 video_id = get_yt_id(post.link)
                 if video_id:
                     if check_string_in_file("/config/download-archive", video_id):
-                        print(
-                            f"Skipping entry for video with id ({video_id}) since already in archive"
+                        logging.info(
+                            f"RSS    : Skipping entry for video with id ({video_id}) since already in archive"
                         )
                         continue
 
