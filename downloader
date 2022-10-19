@@ -62,7 +62,7 @@ def rss():
         logging.info("RSS    : starting to fetch feeds")
         channels = open("/config/channel-file", "r")
         for channel in channels:
-            logging.info(f"RSS    : processing {channel}")
+            logging.info(f"RSS    : processing channel {channel}")
             url = f"https://www.youtube.com/feeds/videos.xml?channel_id={channel}"
             try:
                 feed = feedparser.parse(url)
