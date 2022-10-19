@@ -2,6 +2,7 @@
 
 from os.path import exists
 from persistqueue import FIFOSQLiteQueue
+from urllib.parse import urlparse, parse_qs
 import feedparser
 import json
 import logging
