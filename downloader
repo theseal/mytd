@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
+from os.path import exists
 from persistqueue import FIFOSQLiteQueue
 import feedparser
 import json
 import logging
 import logging
+import mmap
 import os
 import re
 import requests
@@ -68,6 +70,14 @@ def rss():
                 continue
 
             for post in feed.entries:
+                video_id = get_yt_id(post.link)
+                if video_id:
+                    if check_string_in_file("/config/download-archive", video_id):
+                        print(
+                            f"Skipping entry for video with id ({video_id}) since already in archive"
+                        )
+                        continue
+
                 q.put([post.link])
 
             time.sleep(30)
@@ -105,6 +115,45 @@ def telegram():
         bot.reply_to(message, message.text)
 
     bot.infinity_polling()
+
+
+# From StackOverflow: https://stackoverflow.com/a/7936523
+# noinspection PyTypeChecker
+def get_yt_id(url, ignore_playlist=False):
+    # Examples:
+    # - http://youtu.be/SA2iWivDJiE
+    # - http://www.youtube.com/watch?v=_oPAwA_Udwc&feature=feedu
+    # - http://www.youtube.com/embed/SA2iWivDJiE
+    # - http://www.youtube.com/v/SA2iWivDJiE?version=3&amp;hl=en_US
+    query = urlparse(url)
+    if query.hostname == "youtu.be":
+        return query.path[1:]
+    if query.hostname in {"www.youtube.com", "youtube.com", "music.youtube.com"}:
+        if not ignore_playlist:
+            # use case: get playlist id not current video in playlist
+            with suppress(KeyError):
+                return parse_qs(query.query)["list"][0]
+        if query.path == "/watch":
+            return parse_qs(query.query)["v"][0]
+        if query.path[:7] == "/watch/":
+            return query.path.split("/")[1]
+        if query.path[:7] == "/embed/":
+            return query.path.split("/")[2]
+        if query.path[:3] == "/v/":
+            return query.path.split("/")[2]
+
+
+# returns None for invalid YouTube url
+
+
+def check_string_in_file(file, pattern):
+    if exists(file) == None:
+        return None
+
+    with open(file, "rb", 0) as file:
+        s = mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ)
+        if s.find(bytes(pattern, "utf-8")) != -1:
+            return True
 
 
 if __name__ == "__main__":
