@@ -119,7 +119,7 @@ def telegram():
     bot.infinity_polling()
 
 
-# From StackOverflow: https://stackoverflow.com/a/7936523
+# From StackOverflow: https://stackoverflow.com/a/54383711
 # noinspection PyTypeChecker
 def get_yt_id(url, ignore_playlist=False):
     # Examples:
