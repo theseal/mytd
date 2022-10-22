@@ -114,7 +114,7 @@ def telegram():
     @bot.message_handler(func=lambda message: True)
     def catch_all(message):
         logging.info(f"telegram    : discarding message with invalid message")
-        bot.reply_to(message, message.text)
+        return
 
     bot.infinity_polling()
 
