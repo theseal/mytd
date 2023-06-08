@@ -1,6 +1,6 @@
 FROM python:3.10.5-bullseye
 
-RUN pip3 install poetry
+RUN python3 -m pip3 install poetry
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y ffmpeg && \
