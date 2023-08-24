@@ -408,12 +408,12 @@ files = [
 
 [[package]]
 name = "pytelegrambotapi"
-version = "4.12.0"
+version = "4.13.0"
 description = "Python Telegram bot api."
 optional = false
 python-versions = "*"
 files = [
-    {file = "pyTelegramBotAPI-4.12.0.tar.gz", hash = "sha256:11a482c8add3b8235aa1de4984f1e10df2fac38decac8676d0e5e070e7c3880e"},
+    {file = "pyTelegramBotAPI-4.13.0.tar.gz", hash = "sha256:b4a42b2c304fba36e3dbb3648193486941dc0e8131886ed7c5e147465db24db0"},
 ]
 
 [package.dependencies]
