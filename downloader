@@ -48,7 +48,7 @@ def download():
                     if isinstance(duration, int):
                         if duration <= 60:
                             text = f"Shorts - who needs them?"
-                            logging.info(f"Downloader    : {text} ({url})")
+                            logging.info(f"download    : {text} ({url})")
                             if message:
                                 bot.reply_to(message, text)
                             q.task_done()
