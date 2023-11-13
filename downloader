@@ -48,9 +48,12 @@ def download():
                     duration = info.get("duration")
                     if isinstance(duration, int):
                         if duration <= 60:
+                            text = f"Shorts - who needs them?"
                             logging.info(
-                                f"Downloader    : Shorts - how needs them? ({url})"
+                                f"Downloader    : {text} ({url})"
                             )
+                            if message:
+                                bot.reply_to(message, text)
                             q.task_done()
                             continue
             info = ydl.extract_info(url, download=True)
