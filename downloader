@@ -20,7 +20,6 @@ import yt_dlp
 
 
 def download():
-
     while True:
         items = q.get()
         url = items.pop(0)
@@ -41,7 +40,7 @@ def download():
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url,download=False)
+            info = ydl.extract_info(url, download=False)
             info = ydl.sanitize_info(info)
             if info:
                 if "duration" in info.keys():
@@ -49,9 +48,7 @@ def download():
                     if isinstance(duration, int):
                         if duration <= 60:
                             text = f"Shorts - who needs them?"
-                            logging.info(
-                                f"Downloader    : {text} ({url})"
-                            )
+                            logging.info(f"Downloader    : {text} ({url})")
                             if message:
                                 bot.reply_to(message, text)
                             q.task_done()
