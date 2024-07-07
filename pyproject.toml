@@ -7,11 +7,11 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-requests = "^2.28.2"
-feedparser = "^6.0.10"
-yt-dlp = "^2023.2.17"
-pyTelegramBotAPI = "^4.10.0"
-persist-queue = "^0.8.0"
+requests = "^2.32.2"
+feedparser = "^6.0.11"
+yt-dlp = "^2024.07.02"
+pyTelegramBotAPI = "^4.20.0"
+persist-queue = "^1.0.0"
 
 
 [build-system]
