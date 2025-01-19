@@ -53,6 +53,7 @@ def download():
                                 bot.reply_to(message, text)
                             q.task_done()
                             continue
+            time.sleep(5)
             info = ydl.extract_info(url, download=True)
             info = ydl.sanitize_info(info)
             if info:
