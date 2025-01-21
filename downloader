@@ -28,8 +28,9 @@ def download():
             message = items.pop(0)
 
         logging.info(f"download    : processing {url}")
+        archive_file = "/config/download-archive"
         ydl_opts = {
-            "download_archive": "/config/download-archive",
+            "download_archive": archive_file,
             "ignoreerrors": True,
             "writesubtitles": True,
             "writeautomaticsub": True,
@@ -52,6 +53,13 @@ def download():
                             if message:
                                 bot.reply_to(message, text)
                             q.task_done()
+                            if "id" in info.keys():
+                                id = info.get("id")
+                                archive_file_fd = open(archive_file, "a")
+                                archive_file_fd.write(f"youtube {id}{'\n'}")
+                                archive_file_fd.close()
+
+                            time.sleep(5)
                             continue
             time.sleep(5)
             info = ydl.extract_info(url, download=True)
