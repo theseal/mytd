@@ -5,14 +5,11 @@ from os.path import exists
 from persistqueue import FIFOSQLiteQueue
 from urllib.parse import urlparse, parse_qs
 import feedparser
-import json
 import logging
 import logging
 import mmap
 import os
 import re
-import requests
-import sys
 import telebot
 import threading
 import time
@@ -28,7 +25,7 @@ def download():
             message = items.pop(0)
 
         logging.info(f"download    : processing {url}")
-        archive_file = "/config/download-archive"
+        archive_file = "./config/download-archive"
         ydl_opts = {
             "download_archive": archive_file,
             "ignoreerrors": True,
@@ -81,7 +78,7 @@ def download():
 def rss():
     while True:
         logging.info("RSS    : starting to fetch feeds")
-        channels = open("/config/channel-file", "r")
+        channels = open("./config/channel-file", "r")
         for channel in channels:
             logging.info(f"RSS    : processing channel {channel}")
             url = f"https://www.youtube.com/feeds/videos.xml?channel_id={channel}"
@@ -93,9 +90,15 @@ def rss():
                 continue
 
             for post in feed.entries:
+                if re.match('/shorts/',post.link):
+                    logging.info(
+                        f"Shorts - who needs them? ({post.link})"
+                    )
+                    continue
+
                 video_id = get_yt_id(post.link)
                 if video_id:
-                    if check_string_in_file("/config/download-archive", video_id):
+                    if check_string_in_file("./config/download-archive", video_id):
                         logging.info(
                             f"RSS    : Skipping entry for video with id ({video_id}) since already in archive"
                         )
@@ -187,7 +190,7 @@ if __name__ == "__main__":
     TOKEN = os.environ["TOKEN"]
 
     bot = telebot.TeleBot(TOKEN, parse_mode=None)
-    q = FIFOSQLiteQueue(path="/config/queue", multithreading=True, auto_commit=False)
+    q = FIFOSQLiteQueue(path="./config/queue", multithreading=True, auto_commit=False)
 
     x = threading.Thread(target=rss)
     y = threading.Thread(target=telegram)
