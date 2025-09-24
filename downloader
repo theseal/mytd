@@ -123,7 +123,7 @@ def telegram():
             message, f"Configure the following ID server-side: {message.chat.id}"
         )
 
-    @bot.message_handler(regexp="^(https?://[^\s]+)")
+    @bot.message_handler(regexp=r'^(https?://[^\s]+)')
     def handle_http_message(message):
         if message.chat.id != CHAT_ID:
             logging.info(f"telegram    : discarding message from {message.chat.id}")
