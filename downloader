@@ -33,7 +33,7 @@ def download():
             "writeautomaticsub": True,
             "subtitleslangs": ["sv.*", "en.*"],
             "writethumbnail": True,
-            "outtmpl": "/data/yt/S01E%(upload_date)s - %(uploader)s - %(title)s [%(id)s].%(ext)s",
+            "outtmpl": "/data/S01E%(upload_date)s - %(uploader)s - %(title)s [%(id)s].%(ext)s",
             # "verbose": True,
         }
 
