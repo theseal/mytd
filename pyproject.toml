@@ -8,7 +8,7 @@ readme = "README.md"
 dependencies = [
     "requests>=2.32.2,<3",
     "feedparser>=6.0.11,<7",
-    "yt-dlp>=2025.1.15,<2026",
+    "yt-dlp>=2025.1.15,<2029",
     "pyTelegramBotAPI>=4.20.0,<5",
     "persist-queue>=1.0.0,<2",
 ]
