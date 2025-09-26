@@ -70,7 +70,7 @@ def rss():
             for post in feed.entries:
                 if re.search('/shorts/',post.link):
                     logging.info(
-                        f"Shorts - who needs them? ({post.link})"
+                        f"RSS    : Skipping Shorts ({post.link})"
                     )
                     continue
 
