@@ -90,7 +90,7 @@ def rss():
                 continue
 
             for post in feed.entries:
-                if re.match('/shorts/',post.link):
+                if re.search('/shorts/',post.link):
                     logging.info(
                         f"Shorts - who needs them? ({post.link})"
                     )
