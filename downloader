@@ -38,29 +38,7 @@ def download():
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=False)
-            info = ydl.sanitize_info(info)
-            if info:
-                if "duration" in info.keys():
-                    duration = info.get("duration")
-                    if isinstance(duration, int):
-                        if duration <= 60:
-                            text = f"Shorts - who needs them?"
-                            logging.info(f"download    : {text} ({url})")
-                            if message:
-                                bot.reply_to(message, text)
-                            q.task_done()
-                            if "id" in info.keys():
-                                id = info.get("id")
-                                archive_file_fd = open(archive_file, "a")
-                                archive_file_fd.write(f"youtube {id}{'\n'}")
-                                archive_file_fd.close()
-
-                            time.sleep(5)
-                            continue
-            time.sleep(5)
             info = ydl.extract_info(url, download=True)
-            info = ydl.sanitize_info(info)
             if info:
                 text = "Hemladdat 📼🏴‍☠️"
                 if message:
