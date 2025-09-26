@@ -3,7 +3,7 @@ name = "mytd"
 version = "0.0.0"
 description = "My Youtube Downloader"
 authors = [{ name = "Johan Wassberg", email = "johan@rymdvarel.se" }]
-requires-python = "~=3.12"
+requires-python = ">=3.12"
 readme = "README.md"
 dependencies = [
     "requests>=2.32.2,<3",
