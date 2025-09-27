@@ -34,7 +34,7 @@ def download():
             "subtitleslangs": ["sv.*", "en.*"],
             "writethumbnail": True,
             "outtmpl": f"{data_dir}/S01E%(upload_date)s - %(uploader)s - %(title)s [%(id)s].%(ext)s",
-            # "verbose": True,
+             "verbose": True,
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
