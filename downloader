@@ -46,9 +46,7 @@ def download():
                 title = info.get("title", "N/A")
                 uploader = info.get("uploader", "N/A")
                 thumbnail = info.get("thumbnail", None)
-
-                r = requests.post(WEBHOOK_URL, json={"title": title, "uploader": uploader, "thumbnail": thumbnail})
-                r.status_code
+                requests.post(WEBHOOK_URL, json={"title": title, "uploader": uploader, "thumbnail": thumbnail})
 
             # XXX - Future handle a failed(?) downlaod?
             #else:
