@@ -12,5 +12,7 @@ WORKDIR /app
 RUN uv sync --frozen
 
 COPY downloader /downloader
+COPY flaskan.py /flaskan.py
+COPY start.sh /start.sh
 
-CMD ["uv", "run", "/downloader"]
+CMD ["/start.sh"]
