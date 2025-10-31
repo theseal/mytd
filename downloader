@@ -173,7 +173,7 @@ if __name__ == "__main__":
     WEBHOOK_URL = os.environ["WEBHOOK_URL"]
 
     bot = telebot.TeleBot(TOKEN, parse_mode=None)
-    q = FIFOSQLiteQueue(path="./config/queue", multithreading=True, auto_commit=False)
+    q = FIFOSQLiteQueue(path="/config/queue", multithreading=True, auto_commit=False)
 
     conf_dir=os.getenv("CONFIG_DIR", "/config")
     data_dir=os.getenv("DATA_DIR", "/data")
