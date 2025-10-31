@@ -12,6 +12,5 @@ WORKDIR /app
 RUN uv sync --frozen
 
 COPY downloader /downloader
-CMD ["/downloader"]
 
 CMD ["uv", "run", "/downloader"]
