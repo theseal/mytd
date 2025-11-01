@@ -10,6 +10,6 @@ q = FIFOSQLiteQueue(path="/config/queue", multithreading=True, auto_commit=False
 @app.route("/enqueue", methods=["POST"])
 def enqueue():
     content = request.json
-    print(content["url"])
+    print(content)
     q.put([content["url"]])
     return f"Enqueued {content['url']}"
