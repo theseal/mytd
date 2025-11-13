@@ -6,6 +6,8 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
+RUN curl -fsSL https://deno.land/install.sh | sh
+
 ADD . /app
 WORKDIR /app
 
