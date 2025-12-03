@@ -35,6 +35,7 @@ def download():
             "subtitlesformat": "srt/best",
             "writethumbnail": True,
             "outtmpl": f"{data_dir}/S01E%(upload_date)s - %(uploader)s - %(title)s [%(id)s].%(ext)s",
+            "format": "best*[vcodec~='^(?!av).*']+ba/bv*+ba",
              "verbose": True,
         }
 
