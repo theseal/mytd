@@ -186,6 +186,7 @@ if __name__ == "__main__":
     x.start()
     y.start()
     z.start()
+    x.join()
 
 # For testing
 # URL = "https://www.youtube.com/watch?v=BaW_jenozKc"
